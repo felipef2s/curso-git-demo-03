@@ -50,13 +50,8 @@ class TestSubtrair(unittest.TestCase):
 
     def test_subtrair_descripcao_bug(self):
         """Valida que o erro é especificamente IndexError."""
-        try:
+        with self.assertRaises(IndexError):
             subtrair(5, 2)
-            self.fail("Esperava IndexError ser lançado")
-        except IndexError:
-            pass  # Erro esperado
-        except Exception as e:
-            self.fail(f"Esperava IndexError, mas obteve {type(e).__name__}")
 
 
 class TestMultiplicar(unittest.TestCase):
@@ -68,14 +63,9 @@ class TestMultiplicar(unittest.TestCase):
             multiplicar(4, 5)
 
     def test_multiplicar_descripcao_bug(self):
-        """Valida que o erro é especificamente NameError."""
-        try:
+        """Valida que o erro é especificamente NameError com mensagem esperada."""
+        with self.assertRaisesRegex(NameError, "valor_indefinido"):
             multiplicar(10, 2)
-            self.fail("Esperava NameError ser lançado")
-        except NameError as e:
-            self.assertIn("valor_indefinido", str(e))
-        except Exception as e:
-            self.fail(f"Esperava NameError, mas obteve {type(e).__name__}")
 
 
 class TestDividir(unittest.TestCase):
